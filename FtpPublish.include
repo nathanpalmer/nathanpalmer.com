@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<project name="NAnt Examples" default="build" xmlns="http://nant.sf.net/release/0.86-beta1/nant.xsd">
+	<script language="C#" prefix="test">
+		<references>
+			<include name="Libraries\Rebex\Rebex.Net.Ftp.dll" />
+			<include name="Libraries\Rebex\Rebex.Net.SecureSocket.dll" />			
+			<include name="Libraries\Rebex\Rebex.Net.ProxySocket.dll" />			
+			<include name="Libraries\Rebex\Rebex.Net.Security.dll" />			
+        </references>	
+		<imports>
+			<import namespace="Rebex.Net" />
+        </imports>        
+		<code>
+			<![CDATA[
+    [TaskName("FtpPublish")]
+    public class FtpUploadTask : Task
+    {
+        [TaskAttribute("FtpServer")]
+        public string FtpServer
+        {
+			get { return ftpServer; }			
+			set { ftpServer = value; }			
+        }
+        private string ftpServer;        
+
+        [TaskAttribute("FtpUserName")]
+        public string FtpUserName
+        {
+			get { return ftpUserName; }			
+			set { ftpUserName = value; }			
+        }
+        private string ftpUserName;
+
+        [TaskAttribute("FtpPassword")]
+        public string FtpPassword
+        {
+			get { return ftpPassword; }			
+			set { ftpPassword = value; }			
+        }
+        private string ftpPassword;        
+
+        [TaskAttribute("RemoteBackupDirectory")]
+        public string RemoteBackupDirectory
+        {
+			get { return remoteBackupDirectory; }			
+			set { remoteBackupDirectory = value; }			
+        }
+        private string remoteBackupDirectory;        
+
+        [TaskAttribute("RemotePublicDirectory")]
+        public string RemotePublicDirectory
+        {
+			get { return remotePublicDirectory; }			
+			set { remotePublicDirectory = value; }			
+        }
+        private string remotePublicDirectory;
+        
+        [TaskAttribute("PublishDirectory")]
+        public string PublishDirectory
+        {
+			get { return publishDirectory; }			
+			set { publishDirectory = value; }			
+        }
+        private string publishDirectory;        
+
+        private Ftp ftp;
+
+        protected override void ExecuteTask()
+        {
+            try
+            {
+				Log(Level.Info, string.Format("Logging into {0}", FtpServer));
+                ftp = new Ftp();
+                ftp.Connect(FtpServer);
+                ftp.Login(FtpUserName, FtpPassword);
+
+                string backupDirectory = string.Format("{1}/{0}", DateTime.Now.ToString("yyyyMMddHHssmm"),
+                                                       RemoteBackupDirectory);
+                Log(Level.Info, string.Format("Creating backup directory {0}", backupDirectory));
+                ftp.CreateDirectory(backupDirectory);
+                Backup(backupDirectory, RemotePublicDirectory);
+                DeleteRecursive(RemotePublicDirectory);
+                
+                Log(Level.Info, string.Format("Publishing to {0}", RemotePublicDirectory));
+                Publish(PublishDirectory + @"\*", RemotePublicDirectory);
+
+                ftp.Disconnect();
+            }
+            catch (Exception ex)
+            {
+                Log(Level.Error, "An exception occurred: " + ex.Message);
+            }
+        }
+
+        private void Backup(string ToRemotePath, string FromRemotePath)
+        {
+            Backup(ToRemotePath, FromRemotePath, FromRemotePath);
+        }
+
+        private void Backup(string ToRemotePath, string FromRemoteRoot, string FromRemotePath)
+        {
+            foreach (FtpItem ftpItem in ftp.GetList(FromRemotePath))
+            {                
+                if (ftpItem.IsDirectory)
+                {
+                    ftp.CreateDirectory(ToRemotePath + FromRemotePath.Replace(FromRemoteRoot, "") + "/" + ftpItem.Name);
+                    Backup(ToRemotePath, FromRemoteRoot, FromRemotePath + "/" + ftpItem.Name);
+                }
+                else
+                {
+                    ftp.Rename(FromRemotePath + "/" + ftpItem.Name, ToRemotePath + FromRemotePath.Replace(FromRemoteRoot, "") + "/" + ftpItem.Name);
+                }
+            }
+        }
+
+        private void DeleteRecursive(string Path)
+        {
+            foreach (FtpItem ftpItem in ftp.GetList(Path))
+            {
+                if (ftpItem.IsDirectory)
+                {
+                    DeleteRecursive(Path + "/" + ftpItem.Name);
+                    ftp.RemoveDirectory(Path + "/" + ftpItem.Name);
+                }
+                else
+                {
+                    ftp.DeleteFile(Path + "/" + ftpItem.Name);
+                }
+            }
+        }
+
+        private void Publish(string LocalPath, string RemotePath)
+        {
+            ftp.PutFiles(LocalPath, RemotePath, FtpBatchTransferOptions.Recursive);
+        }
+    }
+			]]>
+		</code>
+	</script>
+</project>

@@ -1,0 +1,13 @@
+﻿<viewdata Title="string"/>
+
+<html>
+	<head>
+		<title>${Title} - NathanPalmer.com</title>
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" />
+		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/base/base-min.css" />
+		<link rel="stylesheet" type="text/css" href="/Content/Site.css"/>
+	</head>
+	<body>    
+		<use content="view"/>
+	</body>
+</html>

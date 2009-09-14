@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Spark.Web.Mvc;
 
 namespace NathanPalmer.com
 {
@@ -26,6 +27,8 @@ namespace NathanPalmer.com
 
         protected void Application_Start()
         {
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new SparkViewFactory());
             RegisterRoutes(RouteTable.Routes);
         }
     }

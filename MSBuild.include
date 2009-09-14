@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project name="NAnt Examples" default="build" xmlns="http://nant.sf.net/release/0.86-beta1/nant.xsd">
+  <target name="MSBuild">
+    <echo message="Compiling solution ${solution.file}"/>
+    <exec program="${framework::get-framework-directory(framework::get-target-framework())}\msbuild.exe" workingdir=".">
+      <arg value="&quot;${solution.file}&quot;"/>
+      <arg value="/t:Rebuild"/>
+      <arg value="/property:Configuration=${build.configuration};TargetFrameworkVersion=3.5"/>
+      <arg value="/Verbosity:Quiet"/>
+      <arg value="/property:WarningLevel=0"/>
+      <arg value="/property:OutDir=&quot;${build.dir}\\&quot;" />
+    </exec>
+  </target>
+</project>

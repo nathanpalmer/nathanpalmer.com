@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<project name="Project" default="build" xmlns="http://nant.sf.net/release/0.86-beta1/nant.xsd">
+  <property name="nant.settings.currentframework" value="net-3.5" />
+  <property name="build.configuration" value="Debug"/>
+  <property name="solution.dir" value="Source"/>
+  <property name="solution.file" value="${solution.dir}\NathanPalmer.com.sln"/>
+  <property name="build.dir" value="Build"/>
+  <property name="package.dir" value="${build.dir}\Package"/>
+  
+  <property name="database.server" value="localhost\sqlexpress"/>
+  <property name="database.name" value="ChangeMe"/>
+  <property name="database.integratedAuthentication" value="true"/>
+  <property name="database.username" value=""/>
+  <property name="database.password" value=""/>
+  <property name="database.script.dir" value="Database"/>
+  <property name="database.script.action" value="Update"/>
+
+  <include buildfile="MSBuild.include"/>
+  <include buildfile="FtpPublish.include"/>
+
+  <property name="local.properties" value="local.properties.xml" />
+  <if test="${file::exists(local.properties)}">
+    <echo message="Local properties file exists!" />
+    <include buildfile="${path::get-full-path(local.properties)}" />
+  </if>
+
+  <target name="build">
+    <property name="build.dir" value="bin"/>
+    <call target="MSBuild"/>
+  </target>
+
+  <target name="package" depends="build">
+    <delete dir="${package.dir}" if="${directory::exists(package.dir)}" />
+    <mkdir dir="${package.dir}"/>
+
+    <copy todir="${package.dir}\website" includeemptydirs="false">
+      <fileset basedir="${solution.dir}\NathanPalmer.com">
+        <include name="images\**"/>
+        <include name="css\**"/>
+        <exclude name="obj\**"/>
+        <exclude name="CodeTemplates\**"/>
+        <exclude name="**\*.user"/>
+        <exclude name="**\.gitignore"/>
+        <exclude name="**\*.dtd"/>
+        <exclude name="**\*.tt"/>
+        <exclude name="**\*.cs"/>
+        <exclude name="**\*.csproj"/>
+        <include name="**\**"/>
+      </fileset>
+    </copy>    
+  </target>
+
+  <target name="publish" depends="package">
+    <FtpPublish
+     FtpServer="${FtpServer}"
+     FtpUserName="${FtpUserName}"
+     FtpPassword="${FtpPassword}"
+     RemoteBackupDirectory="/private/backups"
+     RemotePublicDirectory="/httpdocs"
+     PublishDirectory="${package.dir}\website"/>
+  </target>
+</project>
