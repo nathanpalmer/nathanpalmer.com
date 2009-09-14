@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=1.4.4.561, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\Autofac\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Spark, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f8549eed921a12c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libraries\Spark\Spark.dll</HintPath>
@@ -63,8 +67,17 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
+    <Reference Include="Tarantino.Core, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Tools\Tarantino\Tarantino.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Tarantino.Infrastructure, Version=1.0.99.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Tools\Tarantino\Tarantino.Infrastructure.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutofacControllerFactory.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Default.aspx.cs">
@@ -101,6 +114,16 @@
   <ItemGroup>
     <None Include="Views\Home\Index.spark" />
     <None Include="Views\Layouts\Application.spark" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NathanPalmer.com.Core\NathanPalmer.com.Core.csproj">
+      <Project>{371389D7-E508-438F-8923-E907558BE381}</Project>
+      <Name>NathanPalmer.com.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NathanPalmer.com.Infrastructure\NathanPalmer.com.Infrastructure.csproj">
+      <Project>{5871A63B-C16B-4B55-A217-941FBDCBD82D}</Project>
+      <Name>NathanPalmer.com.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

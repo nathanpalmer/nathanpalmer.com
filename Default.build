@@ -8,7 +8,7 @@
   <property name="package.dir" value="${build.dir}\Package"/>
   
   <property name="database.server" value="localhost\sqlexpress"/>
-  <property name="database.name" value="ChangeMe"/>
+  <property name="database.name" value="NathanPalmer"/>
   <property name="database.integratedAuthentication" value="true"/>
   <property name="database.username" value=""/>
   <property name="database.password" value=""/>
@@ -17,6 +17,7 @@
 
   <include buildfile="MSBuild.include"/>
   <include buildfile="FtpPublish.include"/>
+  <include buildfile="DatabaseUpdate.include"/>
 
   <property name="local.properties" value="local.properties.xml" />
   <if test="${file::exists(local.properties)}">
@@ -52,9 +53,9 @@
 
   <target name="publish" depends="package">
     <FtpPublish
-     FtpServer="${FtpServer}"
-     FtpUserName="${FtpUserName}"
-     FtpPassword="${FtpPassword}"
+     FtpServer="${Publish.Ftp.Server}"
+     FtpUserName="${Publish.Ftp.UserName}"
+     FtpPassword="${Publish.Ftp.Password}"
      RemoteBackupDirectory="/private/backups"
      RemotePublicDirectory="/httpdocs"
      PublishDirectory="${package.dir}\website"/>

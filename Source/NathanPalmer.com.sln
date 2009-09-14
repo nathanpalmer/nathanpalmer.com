@@ -7,6 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NathanPalmer.com.Core", "Na
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NathanPalmer.com.Infrastructure", "NathanPalmer.com.Infrastructure\NathanPalmer.com.Infrastructure.csproj", "{5871A63B-C16B-4B55-A217-941FBDCBD82D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{AA3EAA06-BFC6-4823-AFE1-CEEAA809E292}"
+	ProjectSection(SolutionItems) = preProject
+		..\DatabaseUpdate.include = ..\DatabaseUpdate.include
+		..\Default.build = ..\Default.build
+		..\FtpPublish.include = ..\FtpPublish.include
+		..\local.properties.xml = ..\local.properties.xml
+		..\MSBuild.include = ..\MSBuild.include
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

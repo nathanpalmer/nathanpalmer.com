@@ -29,6 +29,7 @@ namespace NathanPalmer.com
         {
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new SparkViewFactory());
+            ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory());
             RegisterRoutes(RouteTable.Routes);
         }
     }

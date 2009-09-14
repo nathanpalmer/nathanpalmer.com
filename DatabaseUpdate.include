@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project name="Database Update" default="build" xmlns="http://nant.sf.net/release/0.86-beta1/nant.xsd">
+  
+  <target name="clean.database">
+    <property name="database.script.action" value="Drop"/>
+    <call target="manage.database"/>
+  </target>
+
+  <target name="update.database">
+    <property name="database.script.action" value="Update"/>
+    <call target="manage.database"/>
+  </target>
+
+  <target name="create.database">
+    <property name="database.script.action" value="Create"/>
+    <call target="manage.database"/>
+  </target>
+  
+  <target name="manage.database">
+    <manageSqlDatabase
+          scriptDirectory="${database.script.dir}"
+          action="${database.script.action}"
+          server="${database.server}"
+          database="${database.name}"
+          integratedAuthentication="${database.integratedAuthentication}"
+          username="${database.username}"
+          password="${database.password}"/>    
+
+    <if test="${database.script.action != 'Drop'}">
+      <echo message="Current Database Version: ${usdDatabaseVersion}" />
+    </if>
+  </target>
+  
+</project>
