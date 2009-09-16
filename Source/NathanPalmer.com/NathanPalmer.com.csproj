@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libraries\Autofac\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetOpenAuth, Version=3.2.1.9252, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Libraries\DotNetOpenAuth\DotNetOpenAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Spark, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7f8549eed921a12c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Libraries\Spark\Spark.dll</HintPath>
@@ -104,7 +108,7 @@
     <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
-    <Content Include="Views\Account\LogOn.aspx" />
+    <None Include="Views\Account\LogOn.spark" />
     <Content Include="Views\Account\Register.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\LogOnUserControl.ascx" />
@@ -114,6 +118,7 @@
   <ItemGroup>
     <None Include="Views\Home\Index.spark" />
     <None Include="Views\Layouts\Application.spark" />
+    <None Include="Views\Shared\_LogOnUserControl.spark" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NathanPalmer.com.Core\NathanPalmer.com.Core.csproj">
@@ -127,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

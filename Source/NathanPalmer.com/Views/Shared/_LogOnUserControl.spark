@@ -1,0 +1,9 @@
+﻿<ul id="hd-user-links">
+<if condition="Request.IsAuthenticated">
+	<li>Welcome <b>${HttpContext.Current.User.Identity.Name}</b></li>
+	<li>${Html.ActionLink("Sign Off", "LogOff", "Account")}</li>
+</if>
+<else>
+	<li>${Html.ActionLink("Sign In", "LogOn", "Account")}</li>
+</else>
+</ul>

@@ -1,0 +1,23 @@
+﻿<content name="title">Login</content>
+<content name="head">
+</content>
+
+<h2>Log On</h2>
+${Html.ValidationSummary("Login was unsuccessful. Please correct the errors and try again.")}
+
+# using (Html.BeginForm("Authenticate", "Account")) 
+# {  
+<div style="font-size: 140%">
+    <fieldset>
+        <legend>Account Information</legend>        
+        <p>
+            ${Html.TextBox("OpenIDIdentifier", "", new { @class = "openid-identifier", size = "53", height = "32px" })} 
+            <input type="submit" value="Login" style="margin-left: 5px; height: 36px;" />
+            <%=Html.ValidationMessage("OpenIDIdentifier")%>
+        </p>                
+        <p>
+            <%=Html.CheckBox("RememberMe")%> <label class="inline" for="rememberMe">Remember me?</label>
+        </p>
+    </fieldset>
+</div>
+# }
