@@ -7,9 +7,16 @@ namespace NathanPalmer.com.Core.Domain.Model
 {
     public class Post
     {
-        public virtual int ID { get; set; }
-        public virtual DateTime DateCreated { get; set; }
-        public virtual string Subject { get; set; }
-        public virtual string Body { get; set; }
+        public int ID { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Subject { get; set; }
+        public string Body { get; set; }
+        public IList<Tag> Tags { get; set; }
+
+        public Post()
+        {
+            Tags = new List<Tag>();
+            DateCreated = DateTime.Now;
+        }
     }
 }

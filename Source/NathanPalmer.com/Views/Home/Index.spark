@@ -1,2 +1,9 @@
-﻿<content name="title">Home</content>
-This is some content on the first page.
+﻿<viewdata model="IQueryable[[NathanPalmer.com.Core.Domain.Model.Post]]"/>
+<content name="title">Home</content>
+
+${Html.ActionLink("Generate Post", "Generate")}
+
+<div each="var post in Model">
+	<h1>${post.Subject}</h1>
+	<span each="var tag in post.Tags">${tag.Name}<if condition="!tagIsLast">, </if></span>
+</div>

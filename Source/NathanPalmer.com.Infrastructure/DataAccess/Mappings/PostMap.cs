@@ -11,11 +11,30 @@ namespace NathanPalmer.com.Infrastructure.DataAccess.Mappings
     {
         public PostMap()
         {
-            Id(x => x.ID);
+            Id(x => x.ID).GeneratedBy.Identity();
 
-            Map(x => x.DateCreated);
-            Map(x => x.Subject);
-            Map(x => x.Body).CustomSqlType("text");
+            Map(x => x.DateCreated)
+                .Not.Nullable();
+            Map(x => x.Subject)
+                .Not.Nullable();
+            Map(x => x.Body)
+                .CustomSqlType("text")
+                .Not.Nullable();
+
+            //References(x => x.Tags).Class<PostTag>().Cascade.All();
+
+            HasMany(x => x.Tags)
+                .Cascade.All();
+
+            Not.LazyLoad();
+
+            //HasManyToMany(x => x.Tags)
+            //    .AsBag()
+            //    .Table("PostTag")
+            //    .ParentKeyColumn("PostID")
+            //    .ChildKeyColumn("TagID")
+            //    .ForeignKeyConstraintNames("PostID", "TagID")
+            //    .Cascade.All();
         }
     }
 }

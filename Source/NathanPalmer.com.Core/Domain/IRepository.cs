@@ -6,5 +6,6 @@ namespace NathanPalmer.com.Core.Domain
     {
         T Get(int ID);
         IQueryable<T> GetRecent(int Count);
+        void Save(T Entity);
     }
 }

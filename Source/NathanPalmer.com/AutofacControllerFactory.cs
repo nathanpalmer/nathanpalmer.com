@@ -19,6 +19,7 @@ namespace NathanPalmer.com
             var builder = new ContainerBuilder();
             builder.Register<FluentSessionBuilder>().As<ISessionBuilder>();
             builder.Register<FluentNHibernatePostRepository>().As<IPostRepository>();
+            builder.Register<FluentNHibernateTagRepository>().As<ITagRepository>();
 
             foreach (Type t in Assembly.GetExecutingAssembly().GetTypes())
             {

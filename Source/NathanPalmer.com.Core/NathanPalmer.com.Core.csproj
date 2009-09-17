@@ -48,7 +48,10 @@
   <ItemGroup>
     <Compile Include="Domain\IPostRepository.cs" />
     <Compile Include="Domain\IRepository.cs" />
+    <Compile Include="Domain\ITagRepository.cs" />
     <Compile Include="Domain\Model\Post.cs" />
+    <Compile Include="Domain\Model\PostTag.cs" />
+    <Compile Include="Domain\Model\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IFormsAuthentication.cs" />
     <Compile Include="Services\IMembershipService.cs" />
